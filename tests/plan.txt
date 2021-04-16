@@ -1,0 +1,62 @@
+
+Static - no auth required
+ - GET "/" to ensure it returns complete and valid HTML
+ - GET /static/index.js to ensure it returns valid JS
+
+REST
+- POST /api/user
+  - valid username / pw -> welcome message
+  - missing one -> missing required
+  - invalid username -> illegal chars
+  - invalid password -> illegal chars
+  - existing username -> exists
+  - verify new record in users table
+
+- POST /api/auth
+  - valid username / pw ->
+    - welcome message
+    - session cookies in header
+  - missing one -> missing required
+  - invalid (either) -> invalid creds
+
+
+- GET /api/list
+  - no or invalid cookie -> login required
+  - with valid cookie -> json array of obj's
+  - with invalid cookie -> empty json array
+
+- GET /api/search/:pattern
+  - no or invalid cookie -> login required
+  - with valid cookie
+    - valid pattern -> json array of obj's
+    - invalid pattern/chars
+
+- GET /api/note/:id
+  - no or invalid cookie -> login required
+  - with valid cookie
+    - valid id -> json obj with matching id
+    - invalid id -> not found
+
+- POST /api/note
+  - no or invalid cookie -> login required
+  - with valid cookie
+    - valid title and content -> new note id
+    - invalid title or content -> invalid messge
+    - verify new record in notes table
+
+- PATCH /api/note/:id
+  - no or invalid cookie -> login required
+  - with valid cookie
+    - valid id, title and content -> ok
+    - invalid id -> not found
+    - invalid title or content -> invalid messge
+    - verify updated record in notes table
+
+
+DELETE /api/note/:id
+  - no or invalid cookie -> login required
+  - with valid cookie
+    - valid id/userid combo -> ok
+    - invalid id/userid combo -> not found
+    - verify record removed from notes table
+
